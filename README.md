@@ -11,14 +11,6 @@ This script:
 4. Identifies all connections between these TFs
 5. Visualizes the subnetwork interactively using Dash Cytoscape
 
-## Features
-
-- **Interactive Visualization**: Web-based network visualization with multiple layout options
-- **Multiple Input Formats**: Supports both CSV and H5AD (GRnnData) file formats
-- **Customizable**: Adjust the number of TFs to include in the subnetwork
-- **Export Options**: Export visualizations as PNG or SVG
-- **Node Information**: Click on nodes to see detailed information about TFs and targets
-
 ## Installation
 
 ### Prerequisites
@@ -122,33 +114,9 @@ Once the script starts, it will:
    - **Transcription factors**: Shown as yellow diamonds
    - **Edges**: Directed arrows showing regulatory relationships, with thickness indicating connection strength
 
-### Interactive Features
-
-- **Layout Selection**: Choose from multiple layout algorithms:
-  - Concentric (default, good for target-centered networks)
-  - Cose (Force-directed)
-  - Circle
-  - Grid
-  - Breadthfirst
-  - Cose-Bilkent (Best for large networks)
-  - Euler
-  - Spread
-  - Dagre (Hierarchical)
-  - Klay (Hierarchical)
-
-- **Node Information**: Click on any node to see:
-  - For target genes: List of regulating TFs
-  - For TFs: List of targets in the subnetwork
-
-- **Export Options**: 
-  - Export as PNG (high-resolution)
-  - Export as SVG (vector format)
-
 ## Example Visualizations
 
 ### Example 1: MYBPC3 Subnetwork (from H5AD file)
-
-Visualization of the MYBPC3-centered subnetwork generated from a GRnnData H5AD file:
 
 ![MYBPC3 Subnetwork](example_outputs/MYBPC3_scprint.png)
 
@@ -157,15 +125,7 @@ Visualization of the MYBPC3-centered subnetwork generated from a GRnnData H5AD f
 python visualize_target_subnetwork.py --target-gene MYBPC3 --grn-file example_inputs/heart_failure_grn_scprint.h5ad
 ```
 
-This visualization shows:
-- **MYBPC3** (red star) as the central target gene
-- Top transcription factors (yellow diamonds) that regulate MYBPC3
-- Connections between TFs, showing the regulatory network structure
-- Edge thickness indicates the strength of regulatory relationships
-
 ### Example 2: TTN Subnetwork (from CSV file)
-
-Visualization of the TTN-centered subnetwork generated from a CSV file:
 
 ![TTN Subnetwork](example_outputs/TTN_pyscenic.png)
 
@@ -173,40 +133,6 @@ Visualization of the TTN-centered subnetwork generated from a CSV file:
 ```bash
 python visualize_target_subnetwork.py --target-gene TTN --grn-file example_inputs/grn_heart_failure_pyscenic.csv
 ```
-
-This visualization demonstrates:
-- **TTN** (red star) as the central target gene
-- Top transcription factors (yellow diamonds) with strong regulatory connections to TTN
-- Bidirectional and unidirectional regulatory relationships
-- Network topology showing how TFs interact with each other
-
-## Output
-
-The script generates an interactive web-based visualization. The visualization can be:
-- Viewed in your web browser
-- Exported as PNG or SVG using the export buttons in the interface
-- Interacted with (zoom, pan, click nodes for details)
-
-## Troubleshooting
-
-### Common Issues
-
-1. **"No TFs found that regulate [gene]"**
-   - Check that the target gene name matches exactly (case-insensitive)
-   - Verify the gene name exists in your GRN data
-   - The script will show available target genes if the specified gene is not found
-
-2. **"GRnnData package not installed"**
-   - Install with: `pip install grnndata`
-   - Only required if using H5AD files
-
-3. **"dash and dash-cytoscape are not installed"**
-   - Install with: `pip install dash dash-cytoscape`
-
-4. **Empty or sparse network**
-   - Try increasing `--max-tfs` to include more TFs
-   - Check that your GRN file contains edges with sufficient correlation/weight values
-   - The script filters out edges with |correlation| < 0.0001
 
 ## References
 
